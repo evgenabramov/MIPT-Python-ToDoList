@@ -5,7 +5,8 @@ import argparse
 def build_connect_parser():
     connect_parser = subs.add_parser('connect', description='Connect client to server with specified port')
     connect_parser.set_defaults(method='connect')
-    connect_parser.add_argument('--port', required=True, help='Port for connecting')
+    connect_parser.add_argument('--host', required=False, default='localhost', help='Host for connecting')
+    connect_parser.add_argument('--port', required=False, default=50000, help='Port for connecting')
     return connect_parser
 
 
@@ -38,8 +39,8 @@ def build_mark_completed_parser():
 
 
 def build_view_tasks_parser():
-    view_tasks_parser = subs.add_parser('view_tasks', description='View tasks with due date until the specified one')
-    view_tasks_parser.set_defaults(method='view_tasks')
+    view_tasks_parser = subs.add_parser('show_tasks', description='Show tasks with due date until the specified one')
+    view_tasks_parser.set_defaults(method='show_tasks')
     view_tasks_parser.add_argument('--latest-date', required=False, dest='latest_date', help='Latest date of tasks')
     view_tasks_parser.add_argument('--with-completed', dest='with_completed', action='store_true',
                                    help='Include completed task (optional argument)')
