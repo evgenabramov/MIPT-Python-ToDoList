@@ -40,7 +40,7 @@
 4. Просмотреть список задач:
 
     ```bash
-    ./client.py view_tasks [--latest-date [LATEST DATE]] [--with-completed]  
+    ./client.py show_tasks [--latest-date [LATEST DATE]] [--with-completed]  
     ```
     
 5. Редактировать задачу:
