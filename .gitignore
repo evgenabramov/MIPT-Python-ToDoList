@@ -1,0 +1,7 @@
+/venv/*
+.idea
+/client/.idea
+/server/.idea
+/client/__pycache__/*
+/server/__pycache__/*
+*.pyc
