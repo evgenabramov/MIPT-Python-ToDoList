@@ -1,5 +1,5 @@
 import psycopg2
-from lib import Task
+from mipt-python-todolist.lib import Task
 
 params = dict(dbname='default', user="evgenabramov", password="12345678", host="localhost")
 

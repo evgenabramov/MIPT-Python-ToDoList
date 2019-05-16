@@ -5,7 +5,7 @@ import flask
 import json
 import argparse
 
-from ..server import database
+import database
 
 app = flask.Flask(__name__)
 
