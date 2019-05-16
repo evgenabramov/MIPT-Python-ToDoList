@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import requests
-import parser
 import sys
 import json
 import datetime
+
+from client import parser
 from lib import Task
-from context_manager import get_stream
+from client.context_manager import get_stream
 
 host = 'localhost'
 port = 50000
@@ -52,17 +53,19 @@ def add_task(name, due_date, has_description):
 
     task = {'name': name, 'due_date': due_date, 'description': description}
     url = 'http://{}:{}/add_task'.format(host, port)
-    requests.post(url, json=json.dumps(task))
+    requests.post(url, json=task)
 
 
 def delete_task(name):
     url = 'http://{}:{}/delete_task?name={}'.format(host, port, name)
-    requests.post(url)
+    query_result = requests.post(url).json()
+    print(query_result)
 
 
 def mark_completed(name):
     url = 'http://{}:{}/mark_completed?name={}'.format(host, port, name)
-    requests.post(url)
+    query_result = requests.post(url).json()
+    print(query_result)
 
 
 def show_tasks(latest_date, with_completed):
@@ -71,7 +74,7 @@ def show_tasks(latest_date, with_completed):
 
     data = {'latest_date': latest_date, 'with_completed': with_completed}
     url = 'http://{}:{}/show_tasks'.format(host, port)
-    response = requests.get(url, json=json.dumps(data))
+    response = requests.get(url, json=data)
     chosen = response.json()
 
     for task in chosen:

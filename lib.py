@@ -4,11 +4,11 @@ import datetime
 class Task:
     def __init__(self, values):
         self.name = values['name']
-        self.due_date = self.get_date(values['due_date'])
+        self.due_date = self.get_datetime_representation(values['due_date'])
         self.description = values['description']
         self.completed = values['completed'] if 'completed' in values.keys() else False
 
-    def __repr__(self):
+    def __str__(self):
         if self.description is not None:
             output_representation = ''.join('\n' + '  ' + string for string in self.description.split('\n'))
         else:
@@ -19,7 +19,7 @@ class Task:
                + '\x1b[1;32;40m' + 'COMPLETED' + '\x1b[0m' + ': {} ]'.format(self.completed)
 
     @classmethod
-    def get_date(cls, date):
+    def get_datetime_representation(cls, date):
         if isinstance(date, datetime.datetime) or date is None:
             return date
         try:
@@ -28,8 +28,11 @@ class Task:
             date = datetime.datetime.strptime(date, '%Y-%m-%d')
         return date
 
+    def get_database_representation(self):
+        return None if self.due_date is None else datetime.datetime.strftime(self.due_date, '%Y-%m-%d')
+
     def get_sending_representation(self):
         return {'name': self.name,
-                'due_date': datetime.datetime.strftime(self.due_date, '%d-%m-%Y'),
+                'due_date': self.get_database_representation(),
                 'description': self.description,
                 'completed': self.completed}
