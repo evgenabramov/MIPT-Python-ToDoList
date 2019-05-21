@@ -7,12 +7,12 @@
 
 Запуск сервера:
 ```bash
-./server.py --port [PORT]
+./server.py --host [HOST] --port [PORT]
 ```
 
 Подключение клиента к серверу:
 ```bash
-./client.py connect --port [PORT]
+./client.py connect --port [PORT] --database-name [DB NAME] --user [USER] --password [PASSWORD] 
 ```
 
 Структура запосов:
@@ -55,4 +55,5 @@
     ./client.py delete_all_tasks
     ```
 
-    
+
+[Ссылка](https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e) с информацией о том, как настроить базу данных на сервере и пользователя: 
