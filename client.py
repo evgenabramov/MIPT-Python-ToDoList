@@ -6,9 +6,10 @@ import sys
 import json
 import datetime
 
-from client import parser
-from lib import Task
-from client.context_manager import get_stream
+from lib.client import parser
+from lib.client.context_manager import get_stream
+from lib.common.task import Task
+
 
 host = 'localhost'
 port = 50000
@@ -16,7 +17,7 @@ port = 50000
 
 def initialize_port():
     try:
-        with open('link_data.json', 'r') as link_data_file:
+        with open('lib/client/link_data.json', 'r') as link_data_file:
             link_data = json.load(link_data_file)
             global host, port
             host, port = link_data['host'], link_data['port']
@@ -25,7 +26,7 @@ def initialize_port():
 
 
 def connect(connection_host, connection_port):
-    with open('link_data.json', 'w') as link_data_file:
+    with open('lib/client/link_data.json', 'w') as link_data_file:
         json.dump({'host': connection_host, 'port': connection_port}, link_data_file)
     global host, port
     host, port = connection_host, connection_port
@@ -86,8 +87,11 @@ def edit_task(name, due_date, has_description):
     if not is_correct_date(due_date):
         return
 
-    delete_task(name)
-    add_task(name, due_date, has_description)
+    url = 'http://{}:{}/delete_task?name={}'.format(host, port, name)
+    query_result = requests.post(url).json()
+    if query_result == 'OK':
+        add_task(name, due_date, has_description)
+    print(query_result)
 
 
 def delete_all_tasks():

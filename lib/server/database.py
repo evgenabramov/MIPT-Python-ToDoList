@@ -1,5 +1,5 @@
 import psycopg2
-from mipt-python-todolist.lib import Task
+from ..common.task import Task
 
 params = dict(dbname='default', user="evgenabramov", password="12345678", host="localhost")
 
@@ -60,7 +60,7 @@ def show_tasks(latest_date, with_completed):
         for row in rows:
             name, due_date, description, completed = row
             chosen.append(Task({'name': name,
-                                'due_date': str(due_date),
+                                'due_date': due_date,
                                 'description': description,
                                 'completed': completed}))
         return chosen

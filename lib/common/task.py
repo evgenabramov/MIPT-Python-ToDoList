@@ -13,14 +13,17 @@ class Task:
             output_representation = ''.join('\n' + '  ' + string for string in self.description.split('\n'))
         else:
             output_representation = None
+        date_output = self.due_date
+        if not self.due_date is None:
+            date_output = self.due_date.date()
         return '\n[ ' + '\x1b[1;32;40m' + 'NAME' + '\x1b[0m' + ': {} \n  '.format(self.name) \
-               + '\x1b[1;32;40m' + 'DUE DATE' + '\x1b[0m' + ': {} \n  '.format(self.due_date.date()) \
+               + '\x1b[1;32;40m' + 'DUE DATE' + '\x1b[0m' + ': {} \n  '.format(date_output) \
                + '\x1b[1;32;40m' + 'DESCRIPTION' + '\x1b[0m' + ': {} \n  '.format(output_representation) \
                + '\x1b[1;32;40m' + 'COMPLETED' + '\x1b[0m' + ': {} ]'.format(self.completed)
 
     @classmethod
     def get_datetime_representation(cls, date):
-        if isinstance(date, datetime.datetime) or date is None:
+        if isinstance(date, datetime.date) or date is None:
             return date
         try:
             date = datetime.datetime.strptime(date, '%d-%m-%Y')

@@ -5,7 +5,8 @@ import flask
 import json
 import argparse
 
-import database
+from lib.server import database
+from lib.common.task import Task
 
 app = flask.Flask(__name__)
 
@@ -56,4 +57,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     database.connect_database(args.database_name, args.user, args.password)
-    app.run('{}::'.format(args.host), args.port, debug=True, threaded=True)
+    app.run('::'.format(args.host), args.port, debug=True, threaded=True)
